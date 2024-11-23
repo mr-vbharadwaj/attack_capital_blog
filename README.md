@@ -1,5 +1,3 @@
-Here's a comprehensive README file for your project, including setup instructions, project structure documentation, and necessary commands to run the application.
-
 ```markdown
 # Blog Platform
 
