@@ -1,7 +1,6 @@
 "use client";
 
 import { Fragment } from "react";
-import { Menu as HeadlessMenu } from "@headlessui/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@/lib/AuthContext";
@@ -16,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100">
-      <Disclosure as="nav" className="bg-white shadow-md ">
+      <Disclosure as="nav" className="bg-white shadow-md">
         {({ open }: { open: boolean }) => (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -30,24 +29,24 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       Blog Platform
                     </Link>
                   </div>
-                  <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                  <div className="hidden sm:ml-6 sm:flex sm:space-x-8 text-black">
                     {navigation.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-indigo-600"
+                        className="inline-flex items-center px-1 pt-1 text-sm font-medium text-black-900 hover:text-indigo-600"
                       >
                         {item.name}
                       </Link>
                     ))}
                   </div>
                 </div>
-                <div className="hidden sm:ml-6 sm:flex sm:items-center">
+                <div className="hidden sm:ml-6 sm:flex sm:items-center text-black">
                   {user ? (
-                    <Menu as="div" className="relative ml-3">
-                      <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <Menu as="div" className="relative ml-3 text-black">
+                      <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-black">
                         <span className="sr-only">Open user menu</span>
-                        <div className="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                        <div className="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center text-black">
                           {user?.email?.[0]?.toUpperCase()}
                         </div>
                       </Menu.Button>
@@ -67,7 +66,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                                 onClick={logout}
                                 className={`${
                                   active ? "bg-gray-100" : ""
-                                } block px-4 py-2 text-sm text-gray-700 w-full text-left text-black`}
+                                } block px-4 py-2 text-sm text-gray-700 w-full text-left`}
                               >
                                 Sign out
                               </button>
@@ -76,25 +75,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         </Menu.Items>
                       </Transition>
                     </Menu>
-                  ) : (
-                    <div className="space-x-4">
-                      <Link
-                        href="/login"
-                        className="text-gray-900 hover:text-indigo-600"
-                      >
-                        Login
-                      </Link>
-                      <Link
-                        href="/signup"
-                        className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
-                      >
-                        Sign up
-                      </Link>
-                    </div>
-                  )}
+                  ) : null}
                 </div>
                 <div className="-mr-2 flex sm:hidden">
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -107,12 +91,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
 
             <Disclosure.Panel className="sm:hidden">
-              <div className="space-y-1 px-2 pt-2 pb-2"></div>
+              <div className="space-y-1 px-2 pt-2 pb-3">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block px-3 py-2 text-base font-medium text-black hover:bg-gray-100"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </Disclosure.Panel>
           </>
         )}
       </Disclosure>
-      {children}
+      <main>{children}</main>
     </div>
   );
 }
